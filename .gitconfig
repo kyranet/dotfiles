@@ -1,0 +1,125 @@
+[core]
+  autocrlf = false
+  excludesfile = "~/.gitignore_global"
+  editor = \"C:\\Users\\aura\\AppData\\Local\\Programs\\Microsoft VS Code\\bin\\code\" --wait
+
+[user]
+  name = Aura Román
+  email = kyradiscord@gmail.com
+
+[commit]
+  gpgSign = true
+[diff]
+  tool = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+[init]
+  defaultBranch = main
+[interactive]
+  diffFilter = delta --color-only --features=interactive
+[merge]
+  tool = vscode
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+[pull]
+  rebase = true
+[rebase]
+  autoStash = true
+[tag]
+  gpgSign = true
+  forceSignAnnotated = true
+
+[alias]
+  # List all available aliases
+  alias = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+  # Shortcut to rev-parse
+  rp = rev-parse
+  # List all branches
+  ba = branch -a
+  # Delete a branched merged with main
+  bd = branch -d
+  # Delete any branch
+  bdd = branch -D
+  # Commit
+  ci = commit
+  # Amend commit without editing message
+  cian = commit --amend --no-edit
+  # Checkout
+  co = checkout
+  # Cherry Pick
+  cp = cherry-pick
+  # Starts a duet commit
+  dci = duet-commit
+  # Fixes authors using duet commit
+  fix = duet-commit -s --amend --reset-author -C HEAD
+  # Fix symbolic link after changing from master to main
+  symlink = symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+  # Pull
+  pll = pull
+  # Fetch all and prune
+  prune = fetch --all --prune
+  # Push
+  psh = push
+  # Push and push tags
+  psht = !git push && git push --tags
+  # Prune local tags and redownload remote tags
+  pt = !git tag -l | xargs git tag -d && git fetch -t
+  # Rebase on top of origin/main, interactive
+  riom = rebase origin/main -i
+  # Rebase on top of origin/main
+  rom = rebase origin/main
+  # Continue the rebase
+  rcm = rebase --continue
+  # Abort the rebase
+  rca = rebase --abort
+  # Status
+  st = status
+  # Squash parameter given amount of commits
+  squash = "!f(){ git rebase -i HEAD~$1; }; f"
+  # Squash the amount of commits between HEAD and origin/main
+  squashdiff = !git rebase -i HEAD~$(git rev-list --count origin/main..$(git rev-parse --abbrev-ref HEAD))
+  # Pulls with rebase then pushes local commits
+  sync = !git pull -r && git push
+  # Remove a file from being staged by `git add`
+  unstage = reset
+  # Remove a file from being staged by `git add`
+  unadd = unstage
+  # Yeet a PR to GitHub
+  yeet = !gh pr create -f
+  # Quick access to commit allow empty
+  cie = commit --allow-empty
+  # Commit with whatthecommit
+  ciyolo = "!f() { response=$(curl -s http://whatthecommit.com/index.json); message=$(echo ${response} | jq -r '.commit_message'); link=$(echo ${response} | jq -r '.permalink'); git commit $@ -nam \"chore: $(echo ${message} | tr '[:upper:]' '[:lower:]')\" -m \"permalink: ${link}\"; }; f"
+  # Commit with whatthecommit then push
+  yolo = !git ciyolo && git push
+  # Remove branches based on a pattern
+  br-delete-regex = "!f(){ git branch -D $(git branch | grep -E $1); }; f"
+  # Delete all local branches but main and the current one, only if they are fully merged with main.
+  br-delete-useless = !git branch | grep -v "main" | grep -v ^* | xargs -r git branch -d
+  # Delete all local branches but main and the current one.
+  br-delete-useless-force = !git branch | grep -v "main" | grep -v ^* | xargs -r git branch -D
+  # Logs given amount of commit messages, defaults to 1
+  logline = "!f(){ git log -n ${1:-1} --oneline; }; f"
+  ll = logline
+  # Hard resets the local branch to the remote version. Warning: any changes comitted will be lost. This is a destructive command!
+  hardreset = "!f(){ read -n 1 -r -p 'Are you sure that you want to run git hardreset? [Y/n] '; echo; [[ $REPLY =~ ^[Yy]$ ]] && echo; git reset --hard origin/$(git rev-parse --abbrev-ref HEAD); }; f"
+  # Gets the amount of commits the current branch has diverted from origin/main
+  maindiff = !git rev-list --count origin/main..$(git rev-parse --abbrev-ref HEAD)
+  # alias for submodule
+  sub = submodule
+
+[pager]
+  branch = false
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[duet "env"]
+  git-author-initials = arc
+  git-author-name = Aura Román
+  git-author-email = kyradiscord@gmail.com
