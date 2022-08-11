@@ -20,13 +20,13 @@
 **Q**: What terminal do you recommend for Windows?  
 **A**: Windows Terminal is what I use.
 
-**Q**: I use Arch btw
+**Q**: I use Arch btw  
 **A**: That's not a question. But you can find zsh configs online.
 
-**Q**: What font do you use?
+**Q**: What font do you use?  
 **A**: I use `CaskaydiaCove Nerd Font` from [Nerd-Fonts](https://github.com/ryanoasis/nerd-fonts).
 
-**Q**: Will you continue updating this repository?
+**Q**: Will you continue updating this repository?  
 **A**: Yes, I will. Make sure to watch this repository if you want to keep up with the updates. :eyes:
 
 ### Credits
